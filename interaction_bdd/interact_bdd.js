@@ -1,12 +1,21 @@
 
-const REGEX=require('regex');
-//const CONFIG=require('./config.js');
+//const REGEX=require('regex');
+
+const CONFIG=require('./config.js');
 
 /*--------------------------------------
 
 	// Fonction d'inscription (Avec fonction callback... utile ?)
 		id_user inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callback=null)
 
+
+
+	// Fonction de récupération des données d'un utilisateur
+		function recup_user(id_user, callback=null)
+		//Exemple :
+			recup_user(3,function(tab){
+				console.log(tab.login);
+			});
 
 
 
@@ -72,7 +81,7 @@ function inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callb
 
 							CONFIG.deconnexion();
 							if(etat){
-								callback(id_user);
+								if(callback!=null)callback(id_user);
 								return id_user;
 							}
 							return false;
@@ -93,8 +102,28 @@ function inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callb
 }
 
 
-inscription("bffdzoo", "baba", "bibi", "bubu", 'couceeou@deedzqef.md', "0845658745", "prefs");
+function recup_user(id_user, callback=null){
+
+	if(!CONFIG.connexion())return false;
+
+	var requete=(CONFIG.bdd.query('SELECT `login`, `nom`, `prenom`, `email`, `tel`, `prefs` FROM `user` WHERE `id_user`='+id_user,
+		function (err, result) {
+		    if(!err){
+
+		    	CONFIG.deconnexion();
+		    	if(callback!=null)callback(result[0]);
+		    	return result[0];
+			    
+			}else{
+				console.log(err);
+				CONFIG.deconnexion();
+				return false;
+			}
+	
+	 	}));
+}
 
 module.exports = {
-	inscription
+	inscription,
+	recup_user
 }
