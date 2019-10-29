@@ -10,24 +10,35 @@ const bdd = mysql.createConnection({
   database: 'tp2'
 });
 
-function connexion(){
+var num_fonc=0;
 
-  bdd.connect((err) => {
-    if(err){
-      console.log('Erreur de connexion à la base de données !');
-      return false;
-    }
-  });
+function connexion(num){
 
-  console.log('Connexion à la base de données réussie !');
-  return true;
+  if(num_fonc==0){
+    console.log('Connexion à la base de données...');
+    bdd.connect((err) => {
+      if(err){
+        console.log('Erreur de connexion à la base de données !');
+      }else{
+        num_fonc=num;
+        console.log('Connexion à la base de données réussie !');
+      }
+    });
+  }else{
+    num_fonc=num;
+  }
+
 }
 
-function deconnexion(){
+function deconnexion(num){
 
-  bdd.end();
-  console.log('Deconnexion à la base de données !');
-  return true;
+  if(num_fonc==num&&num_fonc!=0){
+    bdd.end();
+    num_fonc=0;
+    console.log('Déconnexion de la base de données !');
+    return true;
+  }
+  return false;
 
 }
 

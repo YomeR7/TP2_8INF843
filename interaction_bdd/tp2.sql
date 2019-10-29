@@ -31,7 +31,7 @@ CREATE TABLE `TRAJET` (
   		FOREIGN KEY (`id_conducteur`) REFERENCES `USER`(`id_user`),
   `date` date NOT NULL COMMENT 'Date du trajet',
   `h_dep` time NOT NULL COMMENT 'Heure de depart du trajet',
-  `h_arr` time DEFAULT NULL COMMENT 'Heure d''arrive du trajet',
+  `h_arr` time NOT NULL COMMENT 'Heure d''arrive du trajet',
   `lieu_dep` varchar(80) NOT NULL COMMENT 'Lieu de depart du trajet',
   `lieu_arr` varchar(80) NOT NULL COMMENT 'Lieu d''arrive du trajet',
   `nb_places_tot` int(11) NOT NULL COMMENT 'Nombre de places totales disponibles dans le vehicule',
