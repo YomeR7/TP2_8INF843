@@ -3,8 +3,8 @@ const CONFIG=require('./config.js');
 
 /*--------------------------------------
 
-	// Fonction d'inscription (Avec fonction callback... utile ?)
-		id_user inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callback=null)
+	// Fonction d'inscription
+		id_user inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callback=null);
 		//Exemple :
 			inscription("Baeea", "bobo", "bibi", "bebe", "babeea@bubu.r", null, null, function(id_user){
 				console.log(id_user);
@@ -12,7 +12,7 @@ const CONFIG=require('./config.js');
 
 
 	// Fonction de récupération des données d'un utilisateur
-		function recup_user(id_user, callback=null)
+		function recup_user(id_user, callback=null);
 		//Exemple :
 			recup_user(3,function(tab){
 				console.log(tab.login);
@@ -26,6 +26,13 @@ const CONFIG=require('./config.js');
 				console.log(id_trajet);
 			});
 
+
+	// Fonction de suppression d'un trajet
+		function suppr_trajet(id_trajet, callback=null);
+		//Exemple :
+			suppr_trajet(3, function(){
+				console.log("Callback");
+			});
 
 
 --------------------------------------*/
@@ -84,7 +91,6 @@ function inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callb
 	
 	 	}));
 }
-
 
 function recup_user(id_user, callback=null){
 	var NUM_FONC=2;
@@ -155,13 +161,36 @@ function creation_trajet(id_conducteur, date, lieu_dep, lieu_arr, h_dep, h_arr, 
 			}
 	
 	 	}));
-
 }
 
+function suppr_trajet(id_trajet, callback=null){
+	var NUM_FONC=4;
 
+	if(id_trajet==undefined){
+		console.log("Un paramètre obligatoire n'est pas défini (fonction recup_user) !");
+		return false;
+	}
+
+	CONFIG.connexion(NUM_FONC);
+
+	var requete=CONFIG.bdd.query('DELETE FROM `TRAJET` WHERE `id_trajet`='+id_trajet,
+		function (err, result) {
+		    if(!err){
+		    	console.log(result);
+			    if(callback!=null)callback(id_trajet);
+			    CONFIG.deconnexion(NUM_FONC);
+			}else{
+				console.log(err);
+				CONFIG.deconnexion(NUM_FONC);
+				return false;
+			}
+	 	});
+
+}
 
 module.exports = {
 	inscription,
 	recup_user,
-	creation_trajet
+	creation_trajet,
+	suppr_trajet
 }
