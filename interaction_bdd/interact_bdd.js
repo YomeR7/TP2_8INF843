@@ -5,7 +5,7 @@ const CONFIG=require('./config.js');
 
 	// Fonction d'inscription
 		id_user inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callback=null);
-		//Exemple :
+		// Exemple :
 			inscription("Baeea", "bobo", "bibi", "bebe", "babeea@bubu.r", null, null, function(id_user){
 				console.log(id_user);
 			});
@@ -13,7 +13,7 @@ const CONFIG=require('./config.js');
 
 	// Fonction de récupération des données d'un utilisateur
 		function recup_user(id_user, callback=null);
-		//Exemple :
+		// Exemple :
 			recup_user(3,function(tab){
 				console.log(tab.login);
 			});
@@ -21,7 +21,7 @@ const CONFIG=require('./config.js');
 
 	// Fonction de création d'un trajet
 		creation_trajet(id_conducteur, date, lieu_dep, lieu_arr, h_dep, h_arr, nb_places_tot, callback=null);
-		//Exemple :
+		// Exemple :
 			creation_trajet(id_user, "2012-10-25", "Paris", "Limoges", "16:00", "20:00", 3, function(id_trajet){
 				console.log(id_trajet);
 			});
@@ -29,11 +29,17 @@ const CONFIG=require('./config.js');
 
 	// Fonction de suppression d'un trajet
 		function suppr_trajet(id_trajet, callback=null);
-		//Exemple :
+		// Exemple :
 			suppr_trajet(3, function(){
 				console.log("Callback");
 			});
 
+	// Fonction de recherche d'un trajet
+		function recherche_trajet(lieu_dep, lieu_arr, h_dep, date="NOW()", nb_perso=null, callback=null);
+		// Exemple :
+			recherche_trajet("lieu_dep", "lieu_arr", 5, "2012-12-24", 2, function(resultats){
+				console.log(resultats);
+			});
 
 --------------------------------------*/
 
@@ -123,7 +129,7 @@ function creation_trajet(id_conducteur, date, lieu_dep, lieu_arr, h_dep, h_arr, 
 	var NUM_FONC=3;
 
 	if(id_conducteur==undefined||date==undefined||lieu_dep==undefined||lieu_arr==undefined||h_dep==undefined||h_arr==undefined||nb_places_tot==undefined){
-		console.log("Un paramètre obligatoire n'est pas défini (fonction inscription) !");
+		console.log("Un paramètre obligatoire n'est pas défini (fonction creation_trajet) !");
 		return false;
 	}
 
@@ -167,7 +173,7 @@ function suppr_trajet(id_trajet, callback=null){
 	var NUM_FONC=4;
 
 	if(id_trajet==undefined){
-		console.log("Un paramètre obligatoire n'est pas défini (fonction recup_user) !");
+		console.log("Un paramètre obligatoire n'est pas défini (fonction suppr_trajet) !");
 		return false;
 	}
 
@@ -187,6 +193,31 @@ function suppr_trajet(id_trajet, callback=null){
 	 	});
 
 }
+
+function recherche_trajet(lieu_dep, lieu_arr, h_dep, date="NOW()", nb_perso=null, callback=null){
+	var NUM_FONC=5;
+
+	if(lieu_dep==undefined||lieu_arr==undefined||h_dep==undefined){
+		console.log("Un paramètre obligatoire n'est pas défini (fonction recherche_trajet) !");
+		return false;
+	}
+	CONFIG.connexion(NUM_FONC);
+
+	var requete=CONFIG.bdd.query('SELECT `trajet`.`id_trajet`,`trajet`.`id_conducteur`,`trajet`.`date`,`trajet`.`lieu_dep`,`trajet`.`lieu_arr`,`trajet`.`h_dep`,`trajet`.`h_arr`,`reservation`.`nb_place`,`trajet`.`nb_places_tot`-SUM(`reservation`.`nb_place`) nb_places_tot FROM `trajet` JOIN `user` ON `user`.`id_user`=`trajet`.`id_conducteur` JOIN `reservation` ON `trajet`.`id_trajet`=`reservation`.`id_trajet` WHERE `trajet`.`date`="'+date+'" AND `trajet`.`h_dep`>'+h_dep+' AND `trajet`.`lieu_dep`="'+lieu_dep+'" AND `trajet`.`lieu_arr`="'+lieu_arr+'" AND `trajet`.`nb_places_tot`>='+nb_perso+' GROUP BY `trajet`.`id_trajet`',
+		function (err, result) {
+		    if(!err){
+			    if(callback!=null)callback(result);
+			    CONFIG.deconnexion(NUM_FONC);
+			}else{
+				console.log(err);
+				CONFIG.deconnexion(NUM_FONC);
+				return false;
+			}
+	 	});
+
+}
+
+
 
 module.exports = {
 	inscription,
