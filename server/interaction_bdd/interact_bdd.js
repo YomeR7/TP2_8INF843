@@ -67,6 +67,14 @@ const CONFIG=require('./config.js');
 				console.log(result);
 			});
 
+	
+	// Fonction de test du mot de passe
+		function test_mdp(id_user, hash, callback=null);
+		// Exemple
+			test_mdp(1, "obo", function(etat){
+				console.log(etat);
+			});
+
 
 --------------------------------------*/
 
@@ -374,6 +382,31 @@ function histo_trajet(id_user, callback=null){
 
 }
 
+function test_mdp(id_user, hash, callback=null){
+	var NUM_FONC=CONFIG.id_fonction();
+
+	if(id_user==undefined||hash==undefined){
+		console.log("Un paramètre obligatoire n'est pas défini (fonction test_mdp) !");
+		return false;
+	}
+	CONFIG.connexion(NUM_FONC);
+
+	var requete=CONFIG.bdd.query('SELECT `id_user` FROM `user` WHERE `id_user`='+id_user+' AND `mdp`="'+hash+'"',
+		function (err, result) {
+		    if(!err){
+		    	var test=false;
+		    	if(result.length!=0)test=true;
+			    if(callback!=null)callback(test);
+			    CONFIG.deconnexion(NUM_FONC);
+			}else{
+				console.log(err);
+				CONFIG.deconnexion(NUM_FONC);
+				return false;
+			}
+	 	});
+
+}
+
 
 module.exports = {
 	user_exist,
@@ -381,5 +414,6 @@ module.exports = {
 	recup_user,
 	creation_trajet,
 	suppr_trajet,
-	recherche_trajet
+	recherche_trajet,
+	test_mdp
 }
