@@ -22,10 +22,10 @@ const CONFIG=require('./config.js');
 
 
 	// Fonction de récupération des données d'un utilisateur
-		function recup_user(id_user, callback=null);
+		function recup_user(id_user=null, login=null, callback=null);
 		// Exemple :
-			recup_user(3,function(tab){
-				console.log(tab.login);
+			recup_user(3, null, function(tab){
+				console.log(tab);
 			});
 
 
@@ -187,17 +187,21 @@ function inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callb
 
 }
 
-function recup_user(id_user, callback=null){
+function recup_user(id_user=null, login=null, callback=null){
 	var NUM_FONC=CONFIG.id_fonction();
 
-	if(id_user==undefined){
+	if(id_user==null&&login==null){
 		console.log("Un paramètre obligatoire n'est pas défini (fonction recup_user) !");
 		return false;
 	}
 
 	CONFIG.connexion(NUM_FONC);
 
-	var requete=(CONFIG.bdd.query('SELECT `login`, `nom`, `prenom`, `email`, `tel`, `prefs` FROM `user` WHERE `id_user`='+id_user,
+	var sql='SELECT `id_user`, `login`, `nom`, `prenom`, `email`, `tel`, `prefs` FROM `user` WHERE ';
+	if(id_user!=null)sql+='`id_user`='+id_user;
+	if(login!=null)sql+='`login`='+login;
+
+	var requete=(CONFIG.bdd.query(sql,
 		function (err, result) {
 		    if(!err){
 
@@ -406,7 +410,6 @@ function test_mdp(id_user, hash, callback=null){
 	 	});
 
 }
-
 
 module.exports = {
 	user_exist,
