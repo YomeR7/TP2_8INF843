@@ -205,7 +205,8 @@ function recup_user(id_user=null, login=null, callback=null){
 		function (err, result) {
 		    if(!err){
 
-		    	if(callback!=null)callback(result[0]);
+		    	if(result.length==0)console.log("L'utilisateur n'existe pas !");
+		    	if(callback!=null)callback(result[0]);	// Retourne undefined si l'utilisateur n'existe pas, sinon le tableau de données de l'utilisateur
 		    	CONFIG.deconnexion(NUM_FONC);
 		    	return result[0];
 			    
@@ -410,6 +411,7 @@ function test_mdp(id_user, hash, callback=null){
 	 	});
 
 }
+
 
 module.exports = {
 	user_exist,

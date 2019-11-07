@@ -11,31 +11,32 @@ const bdd = mysql.createConnection({
 });
 
 var ID_FONC=0;
-var NUM_FONC=0;
+var NUM_FONC=new Set();
 
 function connexion(num){
 
-  if(NUM_FONC==0){
+  if(NUM_FONC.size==0){
     console.log('Connexion à la base de données...');
     bdd.connect((err) => {
       if(err){
         console.log('Erreur de connexion à la base de données !');
       }else{
-        NUM_FONC=num;
+        NUM_FONC.add(num);
         console.log('Connexion à la base de données réussie !');
       }
     });
   }else{
-    NUM_FONC=num;
+    NUM_FONC.add(num);
   }
 
 }
 
 function deconnexion(num){
 
-  if(NUM_FONC==num&&NUM_FONC!=0){
+  NUM_FONC.delete(num);
+
+  if(NUM_FONC.size==0){
     bdd.end();
-    NUM_FONC=0;
     console.log('Déconnexion de la base de données !');
     return true;
   }
