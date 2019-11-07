@@ -17,11 +17,12 @@ function connexion(num){
 
   if(NUM_FONC.size==0){
     console.log('Connexion à la base de données...');
+    NUM_FONC.add(num);
     bdd.connect((err) => {
       if(err){
         console.log('Erreur de connexion à la base de données !');
+        NUM_FONC.delete(num);
       }else{
-        NUM_FONC.add(num);
         console.log('Connexion à la base de données réussie !');
       }
     });
