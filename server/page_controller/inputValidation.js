@@ -24,7 +24,7 @@ const validation = (schema, property) => {
 /*  Schemas de validation
     TODO:Ajouter des schemas pour chaque champs d'input
 */
-const userSchema = joi.object().keys({
+const inscriptionSchema = joi.object().keys({
   login: joi.string().trim().alphanum().max(10).required(),
   password: joi.string().min(5).max(10).required(),
   nom: joi.string().required(),
@@ -34,13 +34,24 @@ const userSchema = joi.object().keys({
   prefs: joi.string()
 })
 
-const userAuth = joi.object.keys({
+const authSchema = joi.object().keys({
   login: joi.string().trim().alphanum().max(10).required(),
   password: joi.string().min(5).max(10).required()
 })
 
+const trajetSchema = joi.object().keys({
+  idConducteur:joi.number().required(),
+  date:joi.date().required(),
+  hDepart: joi.date().required(),
+  hArrive: joi.date().required(),
+  lieuDepart: joi.string().required(),
+  lieuArrivee: joi.string().required(),
+  nbPlace:joi.number().required()
+})
+
 module.exports = {
   validation,
-  userSchema,
-  userAuth
+  inscriptionSchema,
+  authSchema,
+  trajetSchema
 };

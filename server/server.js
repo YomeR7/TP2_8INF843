@@ -2,6 +2,8 @@ const express = require('express')
 const route = require('./routes/routes')
 const bodyParser = require('body-parser')
 const session = require('express-session');
+const uuid = require('uuid/v4')
+const FileStore = require('session-file-store')(session)
 const app = express()
 //const cors = require('cors')
 
@@ -11,10 +13,17 @@ const app = express()
 } */
 
 app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
+  genid: (req) => {
+    console.log('Inside the session middleware')
+    return uuid() // use UUIDs for session IDs
+  },
+  store: new FileStore,
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+
+
 //app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
