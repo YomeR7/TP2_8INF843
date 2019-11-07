@@ -199,7 +199,7 @@ function recup_user(id_user=null, login=null, callback=null){
 
 	var sql='SELECT `id_user`, `login`, `nom`, `prenom`, `email`, `tel`, `prefs` FROM `user` WHERE ';
 	if(id_user!=null)sql+='`id_user`='+id_user;
-	if(login!=null)sql+='`login`='+login;
+	if(login!=null)sql+='`login`="'+login+'"';
 
 	var requete=(CONFIG.bdd.query(sql,
 		function (err, result) {
