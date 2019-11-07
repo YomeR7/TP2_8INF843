@@ -34,14 +34,18 @@ function connexion(num){
 
 function deconnexion(num){
 
-  NUM_FONC.delete(num);
+  setTimeout(function() {
 
-  if(NUM_FONC.size==0){
-    bdd.end();
-    console.log('Déconnexion de la base de données !');
-    return true;
-  }
-  return false;
+    NUM_FONC.delete(num);
+
+    if(NUM_FONC.size==0){
+      bdd.end();
+      console.log('Déconnexion de la base de données !');
+      return true;
+    }
+    return false;
+    
+  }, 3000);
 
 }
 
