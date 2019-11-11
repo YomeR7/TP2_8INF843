@@ -1,0 +1,16 @@
+<mat-list>
+    <label>Login</label>
+    <mat-list-item>{{userService.getLogin()}}</mat-list-item>
+    <mat-divider></mat-divider>
+    <label>Nom</label>
+    <mat-list-item>{{userService.getNom()}}</mat-list-item>
+    <mat-divider></mat-divider>
+    <label>Prenom</label>
+    <mat-list-item>{{userService.getPrenom()}}</mat-list-item>
+    <mat-divider></mat-divider>
+    <label>Email</label>
+    <mat-list-item>{{userService.getEmail()}}</mat-list-item>
+    <mat-divider></mat-divider>
+    <label>Historique</label>
+    <mat-list-item *ngFor="let trajet of userService.getTrajetHistorique()">{{trajet}}</mat-list-item>
+</mat-list>
