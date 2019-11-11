@@ -14,7 +14,7 @@ app/**/*.js.map
 node_modules/
 bower_components/
 TAngular/FrontSE/node_modules
-
+sessions/
 # IDEs and editors
 .idea/
 

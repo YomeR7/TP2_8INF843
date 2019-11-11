@@ -40,7 +40,6 @@ const authSchema = joi.object().keys({
 })
 
 const trajetSchema = joi.object().keys({
-  idConducteur:joi.number().required(),
   date:joi.date().required(),
   hDepart: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required(),
   hArrive: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required(),
@@ -50,17 +49,18 @@ const trajetSchema = joi.object().keys({
 })
 
 const findSchema = joi.object().keys({
-
-  date: joi.date().required(),
-  hDepart: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required(),
-  hArrive: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required(),
+  date: joi.date(),
+  hDepart: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/),
+  hArrive: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/),
   lieuDepart: joi.string().required(),
-  lieuArrivee: joi.string().required()
+  lieuArrivee: joi.string().required(),
+  nbPlace:joi.number().required()
 })
 
 module.exports = {
   validation,
   inscriptionSchema,
   authSchema,
-  trajetSchema
+  trajetSchema,
+  findSchema
 };

@@ -420,5 +420,6 @@ module.exports = {
 	creation_trajet,
 	suppr_trajet,
 	recherche_trajet,
-	test_mdp
+	test_mdp,
+	histo_trajet
 }
