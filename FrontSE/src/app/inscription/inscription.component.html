@@ -1,0 +1,42 @@
+<div class="InscriptionForm" >
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+        <div>
+        <mat-form-field>
+            <input matInput placeholder="Login" formControlName="login">
+        </mat-form-field>
+  
+        <mat-form-field>
+            <input matInput type="password" placeholder="Mot de passe" formControlName="mdp">
+        </mat-form-field>
+        </div>
+  
+        <div>
+        <mat-form-field>
+            <input matInput placeholder="Nom" formControlName="nom">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Prenom" formControlName="prenom">
+        </mat-form-field>
+        </div>
+
+        <div>
+        <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Telephone" formControlName="tel">
+        </mat-form-field>
+        </div>
+
+        <div>
+        <mat-form-field>
+            <input matInput placeholder="Préfèrences" formControlName="prefs">
+        </mat-form-field>
+
+        <button type="submit" mat-raised-button> S'inscrire </button>
+        </div>
+    </form>
+  </div>
+  
