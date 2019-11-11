@@ -42,11 +42,20 @@ const authSchema = joi.object().keys({
 const trajetSchema = joi.object().keys({
   idConducteur:joi.number().required(),
   date:joi.date().required(),
-  hDepart: joi.date().required(),
-  hArrive: joi.date().required(),
+  hDepart: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required(),
+  hArrive: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required(),
   lieuDepart: joi.string().required(),
   lieuArrivee: joi.string().required(),
   nbPlace:joi.number().required()
+})
+
+const findSchema = joi.object().keys({
+
+  date: joi.date().required(),
+  hDepart: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required(),
+  hArrive: joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required(),
+  lieuDepart: joi.string().required(),
+  lieuArrivee: joi.string().required()
 })
 
 module.exports = {
