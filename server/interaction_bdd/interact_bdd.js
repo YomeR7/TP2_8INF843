@@ -67,6 +67,13 @@ const CONFIG=require('./config.js');
 				console.log(result);
 			});
 
+	// FOnction de listage de l'historique des trajets que l'utilisateur a créé
+		function histo_trajet_cree(id_user, callback=null);
+		// Exemple
+			histo_trajet_cree(1, function(result){
+				console.log(result);
+			});
+
 	
 	// Fonction de test du mot de passe
 		function test_mdp(id_user, hash, callback=null);
@@ -205,8 +212,7 @@ function recup_user(id_user=null, login=null, callback=null){
 		function (err, result) {
 		    if(!err){
 
-		    	if(result.length==0)console.log("L'utilisateur n'existe pas !");
-		    	if(callback!=null)callback(result[0]);	// Retourne undefined si l'utilisateur n'existe pas, sinon le tableau de données de l'utilisateur
+		    	if(callback!=null)callback(result[0]);
 		    	CONFIG.deconnexion(NUM_FONC);
 		    	return result[0];
 			    
@@ -387,6 +393,29 @@ function histo_trajet(id_user, callback=null){
 
 }
 
+function histo_trajet_cree(id_user, callback=null){
+	var NUM_FONC=CONFIG.id_fonction();
+
+	if(id_user==undefined){
+		console.log("Un paramètre obligatoire n'est pas défini (fonction histo_trajet_cree) !");
+		return false;
+	}
+	CONFIG.connexion(NUM_FONC);
+
+	var requete=CONFIG.bdd.query('SELECT t1.`id_trajet`, t1.`id_conducteur`, t1.`date`, t1.`h_dep`, t1.`h_arr`, t1.`lieu_dep`, t1.`lieu_arr`, t1.`nb_places_tot`, (SELECT COUNT(r1.`id_trajet`) FROM `reservation` r1 WHERE r1.`id_trajet`=t1.`id_trajet`) nb_reservations FROM `trajet` t1 WHERE t1.`id_conducteur`='+id_user+' ORDER BY t1.`date` DESC',
+		function (err, result) {
+		    if(!err){
+			    if(callback!=null)callback(result);
+			    CONFIG.deconnexion(NUM_FONC);
+			}else{
+				console.log(err);
+				CONFIG.deconnexion(NUM_FONC);
+				return false;
+			}
+	 	});
+
+}
+
 function test_mdp(id_user, hash, callback=null){
 	var NUM_FONC=CONFIG.id_fonction();
 
@@ -412,7 +441,6 @@ function test_mdp(id_user, hash, callback=null){
 
 }
 
-
 module.exports = {
 	user_exist,
 	inscription,
@@ -420,6 +448,5 @@ module.exports = {
 	creation_trajet,
 	suppr_trajet,
 	recherche_trajet,
-	test_mdp,
-	histo_trajet
+	test_mdp
 }
