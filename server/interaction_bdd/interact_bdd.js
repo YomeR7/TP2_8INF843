@@ -67,10 +67,17 @@ const CONFIG=require('./config.js');
 				console.log(result);
 			});
 
-	// FOnction de listage de l'historique des trajets que l'utilisateur a créé
+	// Fonction de listage de l'historique des trajets que l'utilisateur a créé
 		function histo_trajet_cree(id_user, callback=null);
 		// Exemple
 			histo_trajet_cree(1, function(result){
+				console.log(result);
+			});
+
+	// Fonction de listage des reservations associés à un trajet
+		function recup_trajet_reservations(id_trajet, callback=null);
+		// Exemple
+			recup_trajet_reservations(1, function(result){
 				console.log(result);
 			});
 
@@ -416,6 +423,29 @@ function histo_trajet_cree(id_user, callback=null){
 
 }
 
+function recup_trajet_reservations(id_trajet, callback=null){
+	var NUM_FONC=CONFIG.id_fonction();
+
+	if(id_trajet==undefined){
+		console.log("Un paramètre obligatoire n'est pas défini (fonction recup_trajet_reservations) !");
+		return false;
+	}
+	CONFIG.connexion(NUM_FONC);
+
+	var requete=CONFIG.bdd.query('SELECT r1.`id_user`, r1.`nb_place`, r1.`etape_dep`, r1.`etape_arr` FROM `reservation` r1 WHERE r1.`id_trajet`='+id_trajet,
+		function (err, result) {
+		    if(!err){
+			    if(callback!=null)callback(result);
+			    CONFIG.deconnexion(NUM_FONC);
+			}else{
+				console.log(err);
+				CONFIG.deconnexion(NUM_FONC);
+				return false;
+			}
+	 	});
+
+}
+
 function test_mdp(id_user, hash, callback=null){
 	var NUM_FONC=CONFIG.id_fonction();
 
@@ -440,6 +470,8 @@ function test_mdp(id_user, hash, callback=null){
 	 	});
 
 }
+
+
 
 module.exports = {
 	user_exist,
