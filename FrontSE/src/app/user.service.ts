@@ -109,24 +109,17 @@ export class UserService {
 
   }
 
-  userReset() {
-    this.id = 10;
-    this.login = 'PatouMata';
-    this.password = 'BItch';
-    this.nom = 'Jean';
-    this.prenom = 'Marie';
-    this.email = 'hihi@email.com';
-    this.tel = '0645789612';
-    this.prefs = 'Pas de chat';
-    this.trajetHistorique = ['J suis deja aller la '];
-    this.trajetReserve = [' J suis ap aller la bas'];
-  }
-
   userConnexion(connexionObj) {
-    return this.http.post('http://127.0.0.1:8000/auth', connexionObj)
+    return this.http.post('http://127.0.0.1:8000/user/auth', connexionObj)
       .subscribe((val) => {
-        console.log("POST call successful value returned in body",
-          val);
+        var JSONval = JSON.parse(JSON.stringify(val));
+        if (JSONval.message === "authetication succes") {
+          this.id = 10;
+          this.login = connexionObj.login;
+        }
+        else {
+          alert("Erreur de connexion")
+        }
       },
         response => {
           console.log("POST call in error", response);
@@ -136,7 +129,27 @@ export class UserService {
         });
   }
 
-  getUserfromDBN() {
+  userInscription(inscriptionObj) {
+    return this.http.post('http://127.0.0.1:8000/user/inscription', inscriptionObj)
+      .subscribe((val) => {
+        var JSONval = JSON.parse(JSON.stringify(val));
+        if (JSONval.message === "inscrit avec succes!") {
+          this.id = 10;
+          this.login = inscriptionObj.login;
+        }
+        else {
+          alert("Erreur dans l'inscription")
+        }
+      },
+        response => {
+          console.log("POST call in error", response);
+        },
+        () => {
+          console.log("The POST observable is now completed.");
+        });
+  }
+
+  userInformation(){
 
   }
 
