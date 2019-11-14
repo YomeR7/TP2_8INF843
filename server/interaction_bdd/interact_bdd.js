@@ -484,5 +484,6 @@ module.exports = {
 	histo_trajet,
 	histo_trajet_cree,
 	recup_trajet_reservations,
-	test_mdp
+	test_mdp,
+	reservation
 }
