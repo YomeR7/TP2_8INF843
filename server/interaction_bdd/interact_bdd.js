@@ -311,7 +311,7 @@ function recherche_trajet(lieu_dep, lieu_arr, h_dep, date="NOW()", nb_perso=null
 	}
 	CONFIG.connexion(NUM_FONC);
 
-	var requete=CONFIG.bdd.query('SELECT `trajet`.`id_trajet`,`trajet`.`id_conducteur`,`trajet`.`date`,`trajet`.`lieu_dep`,`trajet`.`lieu_arr`,`trajet`.`h_dep`,`trajet`.`h_arr`,`reservation`.`nb_place`,`trajet`.`nb_places_tot`-COALESCE(SUM(`reservation`.`nb_place`),0) nb_places_tot FROM `trajet` JOIN `user` ON `user`.`id_user`=`trajet`.`id_conducteur` LEFT JOIN `reservation` ON `trajet`.`id_trajet`=`reservation`.`id_trajet` WHERE (`trajet`.`date`>"'+date+'" OR (`trajet`.`h_dep`>"'+h_dep+'" AND `trajet`.`date`=NOW() ) )  AND `trajet`.`date`>=NOW() AND `trajet`.`lieu_arr`="'+lieu_arr+'" AND `trajet`.`nb_places_tot`>='+nb_perso+' GROUP BY `trajet`.`id_trajet`',
+	var requete=CONFIG.bdd.query('SELECT `trajet`.`id_trajet`,`trajet`.`id_conducteur`,`trajet`.`date`,`trajet`.`lieu_dep`,`trajet`.`lieu_arr`,`trajet`.`h_dep`,`trajet`.`h_arr`,`reservation`.`nb_place`,`trajet`.`nb_places_tot`-COALESCE(SUM(`reservation`.`nb_place`),0) nb_places_tot FROM `trajet` JOIN `user` ON `user`.`id_user`=`trajet`.`id_conducteur` LEFT JOIN `reservation` ON `trajet`.`id_trajet`=`reservation`.`id_trajet` WHERE (`trajet`.`date`>"'+date+'" OR (`trajet`.`h_dep`>"'+h_dep+'" AND `trajet`.`date`="'+date+'" ) )  AND `trajet`.`date`>=NOW() AND `trajet`.`lieu_dep`="'+lieu_dep+'" AND `trajet`.`lieu_arr`="'+lieu_arr+'" AND `trajet`.`nb_places_tot`>='+nb_perso+' GROUP BY `trajet`.`id_trajet`',
 		function (err, result) {
 		    if(!err){
 			    if(callback!=null)callback(result);
@@ -470,6 +470,12 @@ function test_mdp(id_user, hash, callback=null){
 	 	});
 
 }
+
+creation_trajet(1, "2019-12-05", "Troyes", "Nogent", "16:00", "20:00", 3, function(id_trajet){
+		recherche_trajet("Troyes", "Nogent", "12:00", "2019-12-05", 1, function(result){
+			console.log(result);
+		});
+});
 
 
 module.exports = {
