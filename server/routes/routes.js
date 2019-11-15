@@ -47,7 +47,7 @@ module.exports = function (express, passport) {
         }
     })
 
-    route.post('    ', inValid.validation(inValid.supprSchema), (req, res) => {
+    route.post('/trajet/delete', inValid.validation(inValid.supprSchema), (req, res) => {
         if (req.isAuthenticated()) {
             trajet.deleteTrajet(req, res)
         } else {
