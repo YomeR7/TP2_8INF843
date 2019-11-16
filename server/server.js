@@ -5,7 +5,7 @@ const session = require('express-session');
 const uuid = require('uuid/v4')
 const FileStore = require('session-file-store')(session)
 const passport = require('passport')
-const cors = require('cors') 
+const cors = require('cors')
 
 require('./page_controller/passportConf')(passport)
 
@@ -17,7 +17,7 @@ app.use(cors())
  * Configuration du body parser
  */
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 
 /** 
@@ -29,7 +29,7 @@ app.use(session({
     console.log(`Request object sessionID from client: ${req.sessionID}`)
     return uuid() // use UUIDs for session IDs
   },
-  store: new FileStore({path : './sessions'}),
+  store: new FileStore({ path: './sessions' }),
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true
@@ -46,7 +46,7 @@ app.use(passport.session())
 /** 
  * Definition de la route de base de l'application
  */
-const route = require('./routes/routes')(app, express, passport)
+const route = require('./routes/routes')(express, passport)
 app.use('/', route)
 
 
@@ -55,6 +55,5 @@ app.use('/', route)
  */
 app.listen(8000, () => {
   console.log('Server started!')
-  
-})  
+})
 

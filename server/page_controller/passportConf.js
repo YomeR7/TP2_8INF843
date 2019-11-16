@@ -11,19 +11,16 @@ module.exports = function (passport) {
             passwordField: 'password',
         },
         (login, password, done) => {
-            console.log("inside local strat")
             bdd.recup_user(null, login, (user) => {
                 if (user == "undefined") {  //l'utilisateur n'existe pas
-                    console.log("ici")
                     return done(null, false)
-                } else {    //l'utilisateur existe
+                } else {                    //l'utilisateur existe
                     const id = user.id_user
                     bdd.test_mdp(id, password, (test) => {
-                        if (test === true) {    //mdp validé 
+                        if (test === true) {//mdp validé 
                             console.log("mdp validé")
                             return done(null, user)
-                        } else {    //mdp erroné
-                            console.log("la")
+                        } else {            //mdp erroné
                             return done(null, false)
                         }
                     })
