@@ -12,5 +12,5 @@
     <mat-list-item>{{userService.getEmail()}}</mat-list-item>
     <mat-divider></mat-divider>
     <label>Historique</label>
-    <mat-list-item *ngFor="let trajet of userService.getTrajetHistorique()">{{trajet}}</mat-list-item>
+    <mat-list-item *ngFor="let trajet of userService.getTrajetHistorique()">{{trajet.heure}}</mat-list-item>
 </mat-list>

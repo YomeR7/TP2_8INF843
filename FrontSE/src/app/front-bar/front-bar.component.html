@@ -10,8 +10,8 @@
 
   <button *ngIf="userService.getId() > 0" mat-raised-button [matMenuTriggerFor]="menu">Menu</button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink='/Information'>Information</button>
-    <button mat-menu-item>Mes trajets</button>
+    <button mat-menu-item routerLink='/Information' (click)="userInformationHistorique()">Information</button>
+    <button mat-menu-item routerLink='/TrajetPerso'>Mes trajets</button>
     <button mat-menu-item (click) = "deconnexion()">Deconnexion</button>
   </mat-menu>
 

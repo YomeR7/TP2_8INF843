@@ -22,7 +22,8 @@ import { MatFormFieldModule  } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatListModule } from '@angular/material/list'; 
+import { MatListModule } from '@angular/material/list';
+import { TrajetPersoComponent } from './trajet-perso/trajet-perso.component'; 
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatListModule } from '@angular/material/list';
     SearchResultComponent,
     ConnexionComponent,
     InscriptionComponent,
-    InformationComponent
+    InformationComponent,
+    TrajetPersoComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,7 @@ import { MatListModule } from '@angular/material/list';
       { path:'Connexion' , component : ConnexionComponent },
       { path:'Inscription' , component : InscriptionComponent },
       { path:'Information' , component : InformationComponent },
+      { path:'TrajetPerso' , component : TrajetPersoComponent },
     ])
   ],
   providers: [],

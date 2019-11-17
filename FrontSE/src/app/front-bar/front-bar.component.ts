@@ -15,6 +15,10 @@ export class FrontBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  userInformationHistorique(){
+    this.userService.userInformationHistorique();
+  }
+
   deconnexion(){
     this.userService.userDeconnexion();
     console.log("Déconnecté")

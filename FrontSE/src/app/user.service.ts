@@ -19,6 +19,7 @@ export class UserService {
   prefs = 'Pas de chien lol';
   trajetHistorique = ['oui'];
   trajetReserve = [];
+  trajetPropose =[];
 
 
   constructor(private http: HttpClient) { }
@@ -107,6 +108,23 @@ export class UserService {
     this.trajetHistorique = [];
     this.trajetReserve = [];
 
+    return this.http.post('http://127.0.0.1:8000/user/logout ', "oui")
+      .subscribe((val) => {
+        var JSONval = JSON.parse(JSON.stringify(val));
+        if (JSONval.message === "l'utilisateur est deconnecté") {
+          alert("Deconnexion réussi")
+        }
+        else {
+          alert("Erreur de déconnexion")
+        }
+      },
+        response => {
+          console.log("POST call in error", response);
+        },
+        () => {
+          console.log("The POST observable is now completed.");
+        });
+
   }
 
   userConnexion(connexionObj) {
@@ -134,8 +152,7 @@ export class UserService {
       .subscribe((val) => {
         var JSONval = JSON.parse(JSON.stringify(val));
         if (JSONval.message === "inscrit avec succes!") {
-          this.id = 10;
-          this.login = inscriptionObj.login;
+          alert("Inscrit avec succes!")
         }
         else {
           alert("Erreur dans l'inscription")
@@ -149,11 +166,45 @@ export class UserService {
         });
   }
 
-  userInformation(){
-
+  userInformationHistorique() {
+    this.userInformation();
+    this.userHistorique();
   }
 
+  userInformation() {
+    return this.http.post('http://127.0.0.1:8000/user/information ', "oui")
+      .subscribe((val) => {
+        var JSONval = JSON.parse(JSON.stringify(val));
+        this.id = JSONval.id_user;
+        this.login = JSONval.login;
+        this.nom =JSONval.nom;
+        this.prenom = JSONval.prenom;
+        this.email = JSONval.email;
+        this.tel = JSONval.tel;
+        this.prefs = JSONval.prefs;
+      },
+        response => {
+          console.log("POST call in error", response);
+        },
+        () => {
+          console.log("The POST observable is now completed.");
+        });
+  }
 
+  userHistorique(){
+    return this.http.post('http://127.0.0.1:8000/user/historique  ', "oui")
+      .subscribe((val) => {
+        var JSONval = JSON.parse(JSON.stringify(val));
+        this.trajetHistorique = JSONval.cequejereçois;
+      },
+        response => {
+          console.log("POST call in error", response);
+        },
+        () => {
+          console.log("The POST observable is now completed.");
+        });
+
+  }
 
 
 
