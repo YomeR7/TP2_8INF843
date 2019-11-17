@@ -8,12 +8,11 @@ function postTrajet(req, res) {
     var date = req.body.date
     var lieuDepart = req.body.lieuDepart
     var lieuArrivee = req.body.lieuArrivee
-    var h_dep = req.body.hDepart
-    var h_arr = req.body.hArrive
-    var nb_place_tot = req.body.nbPlace
-    bdd.creation_trajet(idConducteur, date, lieuDepart, lieuArrivee, h_dep, h_arr, nb_place_tot, (result) => {
-        console.log(result)
-        res.send(result)
+    var hDepart = req.body.hDepart
+    var hArrive = req.body.hArrive
+    var nbPlaceTot = req.body.nbPlace
+    bdd.creation_trajet(idConducteur, date, lieuDepart, lieuArrivee, hDepart, hArrive, nbPlaceTot, (result) => {
+        res.send({message:result})
     })
 }
 
@@ -22,19 +21,23 @@ function postTrajet(req, res) {
  * Fonction pour trouver un trajet
  */
 function findTrajet(req, res) {
-    var lieu_dep = req.body.lieuDepart
-    var lieu_arr = req.body.lieuArrivee
-    var h_dep
+    var lieuDepart = req.body.lieuDepart
+    var lieuArrivee = req.body.lieuArrivee
+    var hDepart
     var date = req.body.date
-    var nb_place = req.body.nbPlace
+    var nbPlace = req.body.nbPlace
     if (req.body.hDepart === undefined) {
-        h_dep = "00:00:00"
+        hDepart = "00:00:00"
     } else {
-        h_dep = req.body.hDepart
+        hDepart = req.body.hDepart
     }
-    bdd.recherche_trajet(lieu_dep, lieu_arr, h_dep, date, nb_place, (result) => {
-        console.log(result)
-        res.send(result)
+    bdd.recherche_trajet(lieuDepart, lieuArrivee, hDepart, date, nbPlace, (results) => {
+        if(results[0]){
+            res.send(results)
+        }else{
+            res.send({message:"Aucun trajets trouvés"})
+        }
+        
     })
 }
 
@@ -48,17 +51,25 @@ function reserveTrajet(req, res) {
     nbPlace = req.body.nbPlace
 
     bdd.reservation(idUser, idTrajet, nbPlace, (result) => {
-        res.send(result)
+        if (result===true) {
+            bdd.recup_trajet_reservations(idTrajet,(trajet)=>{
+                res.send({
+                    message: "trajet reservé avec succes",
+                    trajet: trajet
+                })
+            })
+        }else{
+            res.send({message:result})
+        }
     })
 }
 
 
-function deleteTrajet(req, res){
+function deleteTrajet(req, res) {
     idTrajet = req.body.idTrajet
 
-    bdd.suppr_trajet(idTrajet,(result)=>{
-        console.log(result)
-        res.send(result)
+    bdd.suppr_trajet(idTrajet, (result) => {
+        res.send({message:result})
     })
 }
 

@@ -35,7 +35,7 @@ module.exports = function (express, passport) {
         if (req.isAuthenticated()) {
             trajet.postTrajet(req, res)
         } else {
-            res.send({ error: "not connected" })
+            res.send({ message: "not connected" })
         }
     })
 
@@ -43,7 +43,7 @@ module.exports = function (express, passport) {
         if (req.isAuthenticated()) {
             trajet.reserveTrajet(req, res)
         } else {
-            res.send({ error: "not connected" })
+            res.send({ message: "not connected" })
         }
     })
 
@@ -51,7 +51,7 @@ module.exports = function (express, passport) {
         if (req.isAuthenticated()) {
             trajet.deleteTrajet(req, res)
         } else {
-            res.send({ error: "not connected" })
+            res.send({ message: "not connected" })
         }
     })
 
@@ -63,7 +63,7 @@ module.exports = function (express, passport) {
         if (req.isAuthenticated()) {
             users.information(req, res)
         } else {
-            res.send({ error: "not connected" })
+            res.send({ message: "not connected" })
         }
     })
 
@@ -71,16 +71,15 @@ module.exports = function (express, passport) {
         if (req.isAuthenticated()) {
             users.historique(req, res)
         } else {
-            res.send({ error: "not connected" })
+            res.send({ message: "not connected" })
         }
     })
-
 
     route.post('/user/trajetReserve', (req, res) => {
         if (req.isAuthenticated()) {
             users.trajetReserve(req, res)
         } else {
-            res.send({ error: "not connected" })
+            res.send({ message: "not connected" })
         }
     })
 
@@ -88,7 +87,7 @@ module.exports = function (express, passport) {
         if (req.isAuthenticated()) {
             users.trajetCree(req, res)
         } else {
-            res.send({ error: "not connected" })
+            res.send({ message: "not connected" })
         }
     })
 
@@ -97,7 +96,7 @@ module.exports = function (express, passport) {
             req.logout()
             res.send({ message: "l'utilisateur est deconnecté" })
         } else {
-            res.send({ error: "not connected" })
+            res.send({ message: "not connected" })
         }
     })
 

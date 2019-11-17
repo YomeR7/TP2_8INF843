@@ -1,7 +1,7 @@
 const bdd = require('../interaction_bdd/interact_bdd.js')
 
 
-/** t
+/** 
  * Inscription d'un utilisateur
  */
 function inscription(req, res) {
@@ -12,7 +12,7 @@ function inscription(req, res) {
       if (result) {
         res.send({ message: "inscrit avec succes!" })
       } else {
-        res.send({ error: result })
+        res.send({ message: result })
       }
     })
   //database 
@@ -25,10 +25,10 @@ function inscription(req, res) {
 function authentication(req, res, next, passport) {
   passport.authenticate('local-login', (err, user, info) => {
     if (err) { return next(err) }
-    if (!user) { return res.send({ error: "authentication failed" }) }
+    if (!user) { return res.send({ message: "authentication failed" }) }
     req.login(user, (err) => {
       if (err) { return next(err) }
-      return res.send({ message: "authetication succes" })
+      return res.send({ message: "authentication succes" })
     })
   })(req, res, next)
 }
@@ -41,7 +41,7 @@ function information(req, res) {
   id_user = req.session.passport.user //id de l'utilisateur connecté 
 
   bdd.recup_user(id_user, null, (result) => {
-    res.send(result)
+    res.send({message:result})
   })
 }
 
@@ -53,7 +53,7 @@ function historique(req, res) {
   id_user = req.session.passport.user
 
   bdd.histo_trajet(id_user, (result) => {
-    console.log(result)
+    console.log({message:result})
     res.send(result)
   })
 }
@@ -63,8 +63,11 @@ function trajetReserve(req, res) {
   id_user = req.session.passport.user
 
   bdd.histo_trajet(id_user, (result) => {
-    console.log(result)
-    res.send(result)
+    if(result[0]){
+      res.send({message:result})
+    }else{
+      res.send({message:"aucun trajet reservé"})
+    }
   })
 }
 
@@ -72,10 +75,14 @@ function trajetCree(req, res) {
   id_user = req.session.passport.user //id de l'utilisateur connecté 
 
   bdd.histo_trajet_cree(id_user, (result) => {
-    console.log(result)
-    res.send(result)
+    if(result[0]){
+      res.send({message:result})
+    }else{
+      res.send({message:"aucun trajet crée"})
+    }
   })
 }
+
 function payment(req, res) {
 
 }
