@@ -19,7 +19,7 @@ export class UserService {
   prefs = 'Pas de chien lol';
   trajetHistorique = ['oui'];
   trajetReserve = [];
-  trajetPropose =[];
+  trajetPropose = [];
 
 
   constructor(private http: HttpClient) { }
@@ -105,7 +105,7 @@ export class UserService {
     this.email = '';
     this.tel = '';
     this.prefs = '';
-    this.trajetHistorique = [];
+    this.trajetPropose = [];
     this.trajetReserve = [];
 
     return this.http.post('http://127.0.0.1:8000/user/logout ', "oui")
@@ -168,7 +168,7 @@ export class UserService {
 
   userInformationHistorique() {
     this.userInformation();
-    this.userHistorique();
+    //this.userHistorique();
   }
 
   userInformation() {
@@ -177,7 +177,7 @@ export class UserService {
         var JSONval = JSON.parse(JSON.stringify(val));
         this.id = JSONval.id_user;
         this.login = JSONval.login;
-        this.nom =JSONval.nom;
+        this.nom = JSONval.nom;
         this.prenom = JSONval.prenom;
         this.email = JSONval.email;
         this.tel = JSONval.tel;
@@ -190,6 +190,8 @@ export class UserService {
           console.log("The POST observable is now completed.");
         });
   }
+
+  /** 
 
   userHistorique(){
     return this.http.post('http://127.0.0.1:8000/user/historique  ', "oui")
@@ -206,9 +208,40 @@ export class UserService {
 
   }
 
+  **/
 
+  userConducteur() {
+    return this.http.post('http://127.0.0.1:8000/user/trajetConducteur  ', "oui")
+      .subscribe((val) => {
+        var JSONval = JSON.parse(JSON.stringify(val));
+        this.trajetPropose = JSONval;
+      },
+        response => {
+          console.log("POST call in error", response);
+        },
+        () => {
+          console.log("The POST observable is now completed.");
+        });
+  }
 
+  userReserve(){
+  return this.http.post('http://127.0.0.1:8000/user/trajetReserve  ', "oui")
+    .subscribe((val) => {
+      var JSONval = JSON.parse(JSON.stringify(val));
+      this.trajetReserve = JSONval;
+    },
+      response => {
+        console.log("POST call in error", response);
+      },
+      () => {
+        console.log("The POST observable is now completed.");
+      });
+}
 
+userConducteurReserve() {
+  this.userConducteur();
+  this.userReserve();
+}
 
 
 }

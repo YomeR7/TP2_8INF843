@@ -1,16 +1,8 @@
 .recherche{
-    margin-top: 5%;
-    text-align: center;
+    margin:auto;
+    width: 50%;
 }
 
-.search-result {
-    width: 40%;
-    clear : both;
-}
-
-.bouttonRecherche {
-    margin-left: 2%;
-}
 
 
 .card{

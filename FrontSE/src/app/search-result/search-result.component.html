@@ -1,19 +1,87 @@
-<div class = "recherche">
+<div class="recherche">
 
-    <mat-form-field class="search-result">
-        <input matInput type="text" placeholder="Recherche" [(ngModel)]="value">
-      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-          <mat-icon>close</mat-icon>
-      </button>
-    
-    </mat-form-field>
+    <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+        <mat-grid-list cols="3" rowHeight="2:1">
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input matInput placeholder="Date de départ" formControlName="date">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input matInput placeholder="Heure de départ" formControlName="hDepart">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input matInput placeholder="Heure d'arrivée" formControlName="hArrive">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input matInput placeholder="Lieu de départ" formControlName="lieuDepart">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input matInput placeholder="Lieu d'arrivée" formControlName="lieuArrivee">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <input matInput placeholder="Nombre de place" formControlName="nmPlace">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile><button type="submit" mat-raised-button> Rechercher </button></mat-grid-tile>
 
-    <button class = "bouttonRecherche" mat-raised-button>Rechercher</button> 
+        </mat-grid-list>
+    </form>
 </div>
 
 
-<div class = "resultat">
-    <div *ngIf="results.length>0" class = "card" >
-        <mat-card *ngFor= "let result of results"> {{result}} </mat-card>
+<div class="resultat">
+    <div *ngIf="trajetService.trajetRecherche.length>0" class="card">
+        <mat-card *ngFor="let result of trajetService.trajetRecherche">
+            <mat-card-content>
+                <p>
+                    <label> Date :</label>
+                    {{result.date}}
+                </p>
+                <p>
+                    <label> Heure de départ : </label>
+                    {{result.h_dep}}
+                </p>
+                <p>
+                    <label> Heure de arrivée : </label>
+                    {{result.h_arr}}
+                </p>
+                <p>
+                    <label> Lieu de départ : </label>
+                    {{result.lieu_dep}}
+                </p>
+                <p>
+                    <label> Lieu d'arrivée : </label>
+                    {{result.lieu_arr}}
+                </p>
+                <p>
+                    <label> Nombre de place : </label>
+                    {{result.nb_place}}
+                </p>
+                <p>
+                    <label> Email du conducteur: </label>
+                    {{result.email}}
+                </p>
+                <p>
+                    <label> Telephone du conducteur : </label>
+                    {{result.tel}}
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button (click)="trajetService.reservationTrajet(result.id_trajet)"> Reserver </button>
+
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>

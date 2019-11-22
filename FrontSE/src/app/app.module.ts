@@ -23,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
 import { TrajetPersoComponent } from './trajet-perso/trajet-perso.component'; 
 
 
@@ -54,6 +55,7 @@ import { TrajetPersoComponent } from './trajet-perso/trajet-perso.component';
     MatDividerModule,
     MatListModule,
     HttpClientModule,
+    MatGridListModule,
     RouterModule.forRoot([
       { path: '', component: SearchResultComponent },
       { path:'Connexion' , component : ConnexionComponent },

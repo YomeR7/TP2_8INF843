@@ -19,6 +19,10 @@ export class FrontBarComponent implements OnInit {
     this.userService.userInformationHistorique();
   }
 
+  userConducteurReserve(){
+    this.userService.userConducteurReserve();
+  }
+
   deconnexion(){
     this.userService.userDeconnexion();
     console.log("Déconnecté")

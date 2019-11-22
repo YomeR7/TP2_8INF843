@@ -1,16 +1,62 @@
-<mat-list>
-    <label>Login</label>
-    <mat-list-item>{{userService.getLogin()}}</mat-list-item>
-    <mat-divider></mat-divider>
-    <label>Nom</label>
-    <mat-list-item>{{userService.getNom()}}</mat-list-item>
-    <mat-divider></mat-divider>
-    <label>Prenom</label>
-    <mat-list-item>{{userService.getPrenom()}}</mat-list-item>
-    <mat-divider></mat-divider>
-    <label>Email</label>
-    <mat-list-item>{{userService.getEmail()}}</mat-list-item>
-    <mat-divider></mat-divider>
-    <label>Historique</label>
-    <mat-list-item *ngFor="let trajet of userService.getTrajetHistorique()">{{trajet.heure}}</mat-list-item>
-</mat-list>
+<div class="information">
+    <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Mes informations</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                {{userService.getLogin()}}
+            </p>
+            <p>
+                {{userService.getNom()}}
+            </p>
+            <p>
+                {{userService.getPrenom()}}
+            </p>
+            <p>
+                {{userService.getEmail()}}
+            </p>
+            <p>
+                {{userService.getTel()}}
+            </p>
+            <p>
+                {{userService.getPrefs()}}
+            </p>
+        </mat-card-content>
+
+    </mat-card>
+</div>
+<div class = "historique">
+    <mat-card *ngFor="let trajet of userService.getTrajetHistorique()">
+        <mat-card-header>
+            <mat-card-title>Trajet précédent</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                <label> Date :</label>
+                {{trajet.date}}
+            </p>
+            <p>
+                <label> Heure de départ : </label>
+                {{trajet.h_dep}}
+            </p>
+            <p>
+                <label> Heure de arrivée : </label>
+                {{trajet.h_arr}}
+            </p>
+            <p>
+                <label> Lieu de départ : </label>
+                {{trajet.lieu_dep}}
+            </p>
+            <p>
+                <label> Lieu d'arrivée : </label>
+                {{trajet.lieu_arr}}
+            </p>
+            <p>
+                <label> Nom du conducteur : </label>
+                {{trajet.nom}}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>
