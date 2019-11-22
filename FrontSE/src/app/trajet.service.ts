@@ -23,9 +23,23 @@ export class TrajetService {
 
   }
 
-  reservationTrajet(id){
-    console.log(id);
-    alert("Reservation effectué !")
+  reservationTrajet(idTrajet){
+    return this.http.post('http://127.0.0.1:8000/trajet/delete', idTrajet)
+    .subscribe((val) => {
+      var JSONval =JSON.parse(JSON.stringify(val));
+      if (JSONval.message === "trajet reservé avec succes"){
+        alert("Trajet reservé");
+      }
+      else {
+        alert("Erreur ! Veuillez réessayer.");
+      }
+    },
+      response => {
+        console.log("POST call in error", response);
+      },
+      () => {
+        console.log("The POST observable is now completed.");
+      });
   }
 
 
