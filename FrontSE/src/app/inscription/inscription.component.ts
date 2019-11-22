@@ -29,7 +29,7 @@ export class InscriptionComponent implements OnInit {
   }
 
   onSubmit(customerData) {
-    this.userService.userInscription(customerData.login);
+    this.userService.userInscription(customerData);
   }
 
   ngOnInit() {
