@@ -128,7 +128,7 @@ export class UserService {
   }
 
   userConnexion(connexionObj) {
-    return this.http.post('http://127.0.0.1:8000/auth', connexionObj)
+    return this.http.post('http://127.0.0.1:8000/auth', connexionObj,{withCredentials:true})
       .subscribe((val) => {
         var JSONval = JSON.parse(JSON.stringify(val));
         if (JSONval.message === "authentication succes") {
