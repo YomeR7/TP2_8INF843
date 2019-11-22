@@ -9,15 +9,15 @@ import { HttpClient } from '@angular/common/http';
 
 export class UserService {
 
-  id = 10;
-  login = 'Jean';
-  password = 'MOMO';
-  nom = 'MASSAAD';
-  prenom = 'Patrick';
-  email = 'patmassaad@hotmail.com';
-  tel = '0649623275';
-  prefs = 'Pas de chien lol';
-  trajetHistorique = ['oui'];
+  id = -1;
+  login = '';
+  password = '';
+  nom = '';
+  prenom = '';
+  email = '';
+  tel = '';
+  prefs = '';
+  trajetHistorique = [];
   trajetReserve = [];
   trajetPropose = [];
 
