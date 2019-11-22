@@ -29,9 +29,7 @@ export class InscriptionComponent implements OnInit {
   }
 
   onSubmit(customerData) {
-    this.userService.setLogin(customerData.login);
-
-    this.checkoutForm.reset();
+    this.userService.userInscription(customerData.login);
   }
 
   ngOnInit() {
