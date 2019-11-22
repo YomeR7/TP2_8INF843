@@ -20,7 +20,7 @@ export class TrajetPersoComponent implements OnInit {
       hArrive: '',
       lieuDepart:'',
       lieuArrivee:'',
-      nmPlace:'',
+      nbPlace:'',
 
     });
    }
