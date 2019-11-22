@@ -67,7 +67,7 @@ export class TrajetService {
     return this.http.post('http://127.0.0.1:8000/trajet/post', trajetObj,{withCredentials:true})
     .subscribe((val) => {
       var JSONval =JSON.parse(JSON.stringify(val));
-      if (JSONval.message !== "bdd error"){
+      if (JSONval.message === "Trajet cree"){
         alert("Trajet créé");
       }
       else {

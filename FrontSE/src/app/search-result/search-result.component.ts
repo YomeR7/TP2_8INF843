@@ -17,7 +17,7 @@ export class SearchResultComponent implements OnInit {
       hArrive: '',
       lieuDepart:'',
       lieuArrivee:'',
-      nmPlace:'',
+      nbPlace:'',
     });
    }
 
