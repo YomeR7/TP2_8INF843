@@ -10,7 +10,7 @@ export class TrajetService {
   constructor(private http: HttpClient) { }
 
   recherche(RechercheObj){
-    return this.http.post('http://127.0.0.1:8000/trajet/search', RechercheObj)
+    return this.http.post('http://127.0.0.1:8000/trajet/search', RechercheObj,{withCredentials:true})
       .subscribe((val) => {
         this.trajetRecherche= JSON.parse(JSON.stringify(val));
       },
@@ -24,7 +24,7 @@ export class TrajetService {
   }
 
   reservationTrajet(idTrajet){
-    return this.http.post('http://127.0.0.1:8000/trajet/delete', idTrajet)
+    return this.http.post('http://127.0.0.1:8000/trajet/delete', idTrajet,{withCredentials:true})
     .subscribe((val) => {
       var JSONval =JSON.parse(JSON.stringify(val));
       if (JSONval.message === "trajet reservé avec succes"){
@@ -44,7 +44,7 @@ export class TrajetService {
 
 
   supprimerTrajet(idTrajet){
-    return this.http.post('http://127.0.0.1:8000/trajet/delete', idTrajet)
+    return this.http.post('http://127.0.0.1:8000/trajet/delete', idTrajet,{withCredentials:true})
     .subscribe((val) => {
       var JSONval =JSON.parse(JSON.stringify(val));
       if (JSONval.message === "Trajet supprime!"){
@@ -64,7 +64,7 @@ export class TrajetService {
 
 
   postTrajet(trajetObj){
-    return this.http.post('http://127.0.0.1:8000/trajet/post', trajetObj)
+    return this.http.post('http://127.0.0.1:8000/trajet/post', trajetObj,{withCredentials:true})
     .subscribe((val) => {
       var JSONval =JSON.parse(JSON.stringify(val));
       if (JSONval.message !== "bdd error"){

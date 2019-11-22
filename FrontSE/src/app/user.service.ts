@@ -108,7 +108,7 @@ export class UserService {
     this.trajetPropose = [];
     this.trajetReserve = [];
 
-    return this.http.post('http://127.0.0.1:8000/user/logout ', "oui")
+    return this.http.post('http://127.0.0.1:8000/user/logout ', "oui",{withCredentials:true})
       .subscribe((val) => {
         var JSONval = JSON.parse(JSON.stringify(val));
         if (JSONval.message === "l'utilisateur est deconnecté") {
@@ -148,7 +148,7 @@ export class UserService {
   }
 
   userInscription(inscriptionObj) {
-    return this.http.post('http://127.0.0.1:8000/user/inscription', inscriptionObj)
+    return this.http.post('http://127.0.0.1:8000/user/inscription', inscriptionObj,{withCredentials:true})
       .subscribe((val) => {
         var JSONval = JSON.parse(JSON.stringify(val));
         if (JSONval.message === "inscrit avec succes!") {
@@ -172,7 +172,7 @@ export class UserService {
   }
 
   userInformation() {
-    return this.http.post('http://127.0.0.1:8000/user/information ', "oui")
+    return this.http.post('http://127.0.0.1:8000/user/information ', "oui",{withCredentials:true})
       .subscribe((val) => {
         var JSONval = JSON.parse(JSON.stringify(val));
         this.id = JSONval.id_user;
@@ -211,7 +211,7 @@ export class UserService {
   **/
 
   userConducteur() {
-    return this.http.post('http://127.0.0.1:8000/user/trajetConducteur  ', "oui")
+    return this.http.post('http://127.0.0.1:8000/user/trajetConducteur  ', "oui",{withCredentials:true})
       .subscribe((val) => {
         var JSONval = JSON.parse(JSON.stringify(val));
         this.trajetPropose = JSONval;
@@ -225,7 +225,7 @@ export class UserService {
   }
 
   userReserve(){
-  return this.http.post('http://127.0.0.1:8000/user/trajetReserve  ', "oui")
+  return this.http.post('http://127.0.0.1:8000/user/trajetReserve  ', "oui",{withCredentials:true})
     .subscribe((val) => {
       var JSONval = JSON.parse(JSON.stringify(val));
       this.trajetReserve = JSONval;
