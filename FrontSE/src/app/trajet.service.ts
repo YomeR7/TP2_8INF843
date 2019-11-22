@@ -24,7 +24,7 @@ export class TrajetService {
   }
 
   reservationTrajet(idTrajet){
-    return this.http.post('http://127.0.0.1:8000/trajet/delete', idTrajet,{withCredentials:true})
+    return this.http.post('http://127.0.0.1:8000/trajet/reserve', idTrajet,{withCredentials:true})
     .subscribe((val) => {
       var JSONval =JSON.parse(JSON.stringify(val));
       if (JSONval.message === "trajet reservé avec succes"){
