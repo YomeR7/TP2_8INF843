@@ -19,7 +19,7 @@ export class InscriptionComponent implements OnInit {
 
     this.checkoutForm = this.formBuilder.group({
       login: '',
-      mdp:'',
+      password:'',
       nom: '',
       prenom:'',
       email:'',
