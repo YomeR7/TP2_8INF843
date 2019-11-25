@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 
 export class UserService {
 
-  id = -1;
+  id = 10;
   login = '';
   password = '';
   nom = '';
@@ -116,6 +116,7 @@ export class UserService {
         var JSONval = JSON.parse(JSON.stringify(val));
         if (JSONval.message === "l'utilisateur est deconnecté") {
           alert("Deconnexion réussi")
+          this.router.navigateByUrl('/');
         }
         else {
           alert("Erreur de déconnexion")

@@ -36,91 +36,101 @@
                 <mat-grid-tile></mat-grid-tile>
                 <mat-grid-tile></mat-grid-tile>
                 <mat-grid-tile><button type="submit" mat-raised-button> Poster </button></mat-grid-tile>
-    
+
             </mat-grid-list>
         </form>
     </div>
 
     <div *ngIf="userService.trajetPropose.length>0" class="card">
-        <mat-card *ngFor="let result of userService.trajetPropose">
-            <mat-card-content>
-                <p>
-                    <label> Date :</label>
-                    {{result.date}}
-                </p>
-                <p>
-                    <label> Heure de départ : </label>
-                    {{result.h_dep}}
-                </p>
-                <p>
-                    <label> Heure de arrivée : </label>
-                    {{result.h_arr}}
-                </p>
-                <p>
-                    <label> Lieu de départ : </label>
-                    {{result.lieu_dep}}
-                </p>
-                <p>
-                    <label> Lieu d'arrivée : </label>
-                    {{result.lieu_arr}}
-                </p>
-                <p>
-                    <label> Nombre de place reservée : </label>
-                    {{result.nb_reservations}}
-                </p>
-                <p>
-                    <label> Nombre de place totale : </label>
-                    {{result.nb_places_tot}}
-                </p>
-                <p *ngIf="result.nb_places_tot === result.nb_reservations">
-                    <label> TRAJET PLEIN </label>
-                </p>
-                
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button (click)="trajetService.supprimerTrajet(result.id_trajet)"> Supprimer </button>
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Trajets proposés</mat-card-title>
+            </mat-card-header>
+            <mat-card *ngFor="let result of userService.trajetPropose">
+                <mat-card-content>
+                    <p>
+                        <label> Date :</label>
+                        {{result.date}}
+                    </p>
+                    <p>
+                        <label> Heure de départ : </label>
+                        {{result.h_dep}}
+                    </p>
+                    <p>
+                        <label> Heure de arrivée : </label>
+                        {{result.h_arr}}
+                    </p>
+                    <p>
+                        <label> Lieu de départ : </label>
+                        {{result.lieu_dep}}
+                    </p>
+                    <p>
+                        <label> Lieu d'arrivée : </label>
+                        {{result.lieu_arr}}
+                    </p>
+                    <p>
+                        <label> Nombre de place reservée : </label>
+                        {{result.nb_reservations}}
+                    </p>
+                    <p>
+                        <label> Nombre de place totale : </label>
+                        {{result.nb_places_tot}}
+                    </p>
+                    <p *ngIf="result.nb_places_tot === result.nb_reservations">
+                        <label> TRAJET PLEIN </label>
+                    </p>
 
-            </mat-card-actions>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button (click)="trajetService.supprimerTrajet(result.id_trajet)"> Supprimer </button>
+
+                </mat-card-actions>
+            </mat-card>
         </mat-card>
     </div>
 </div>
 
 <div class="trajetsReservés">
 
-        <div *ngIf="userService.trajetReserve.length>0" class="card">
-                <mat-card *ngFor="let result of userService.trajetReserve">
-                    <mat-card-content>
-                        <p>
-                            <label> Date :</label>
-                            {{result.date}}
-                        </p>
-                        <p>
-                            <label> Heure de départ : </label>
-                            {{result.h_dep}}
-                        </p>
-                        <p>
-                            <label> Heure de arrivée : </label>
-                            {{result.h_arr}}
-                        </p>
-                        <p>
-                            <label> Lieu de départ : </label>
-                            {{result.lieu_dep}}
-                        </p>
-                        <p>
-                            <label> Lieu d'arrivée : </label>
-                            {{result.lieu_arr}}
-                        </p>
-                        <p>
-                            <label> Nom du conducteur : </label>
-                            {{result.nom}}
-                        </p>
-                        
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button mat-button (click)="trajetService.supprimerTrajet(result.id_trajet)"> Supprimer </button>
-        
-                    </mat-card-actions>
-                </mat-card>
-            </div>
+    <div *ngIf="userService.trajetReserve.length>0" class="card">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Trajets réservés</mat-card-title>
+            </mat-card-header>
+            <mat-card *ngFor="let result of userService.trajetReserve">
+                <mat-card-content>
+                    <p>
+                        <label> Date :</label>
+                        {{result.date}}
+                    </p>
+                    <p>
+                        <label> Heure de départ : </label>
+                        {{result.h_dep}}
+                    </p>
+                    <p>
+                        <label> Heure de arrivée : </label>
+                        {{result.h_arr}}
+                    </p>
+                    <p>
+                        <label> Lieu de départ : </label>
+                        {{result.lieu_dep}}
+                    </p>
+                    <p>
+                        <label> Lieu d'arrivée : </label>
+                        {{result.lieu_arr}}
+                    </p>
+                    <p>
+                        <label> Nom du conducteur : </label>
+                        {{result.nom}}
+                    </p>
+
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button (click)="trajetService.supprimerTrajet(result.id_trajet)"> Supprimer </button>
+
+                </mat-card-actions>
+            </mat-card>
+        </mat-card>
+    </div>
 
 </div>
