@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {Router} from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -7,7 +8,7 @@ export class TrajetService {
 
   trajetRecherche = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router:Router) { }
 
   recherche(RechercheObj){
     return this.http.post('http://127.0.0.1:8000/trajet/search', RechercheObj,{withCredentials:true})
@@ -49,6 +50,8 @@ export class TrajetService {
       var JSONval =JSON.parse(JSON.stringify(val));
       if (JSONval.message === "Trajet supprime!"){
         alert("Trajet supprimé");
+        this.router.navigateByUrl('/Information');
+
       }
       else {
         alert("Erreur ! Veuillez réessayer.");
