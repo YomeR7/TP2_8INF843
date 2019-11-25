@@ -65,6 +65,27 @@ export class TrajetService {
       });
   }
 
+  supprimerReservation(idTrajet){
+    return this.http.post('http://127.0.0.1:8000/user/supprReservation', {"idTrajet" : idTrajet },{withCredentials:true})
+    .subscribe((val) => {
+      var JSONval =JSON.parse(JSON.stringify(val));
+      if (JSONval.message === "Reservation supprime"){
+        alert("Reservation supprimé");
+        this.router.navigateByUrl('/Information');
+
+      }
+      else {
+        alert("Erreur ! Veuillez réessayer.");
+      }
+    },
+      response => {
+        console.log("POST call in error", response);
+      },
+      () => {
+        console.log("The POST observable is now completed.");
+      });
+  }
+
 
   postTrajet(trajetObj){
     return this.http.post('http://127.0.0.1:8000/trajet/post', trajetObj,{withCredentials:true})
