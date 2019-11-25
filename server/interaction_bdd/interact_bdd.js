@@ -183,11 +183,12 @@ function inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callb
 				function (err2, result2) {
 				    if(!err2){
 					    id_user=result2.insertId;
-					    if(callback!=null)callback(id_user);
+					    if(callback!=null)callback(true);
 					    CONFIG.deconnexion(NUM_FONC);
 						return id_user;
 					}else{
 						console.log(err2);
+						if(callback!=null)callback("bdd error");
 						CONFIG.deconnexion(NUM_FONC);
 						return false;
 					}
@@ -195,6 +196,7 @@ function inscription(login, mdp, nom, prenom, email, tel=null, prefs=null, callb
 
 		}else{
 			console.log('Compte, Nom-Prénom ou adresse email déjà existant !');
+			if(callback!=null)callback("Compte, Nom-Prénom ou adresse email déjà existant !");
 			CONFIG.deconnexion(NUM_FONC);
 		}
 	});
@@ -253,11 +255,12 @@ function creation_trajet(id_conducteur, date, lieu_dep, lieu_arr, h_dep, h_arr, 
 						    if(!err2){
 							    id_trajet=result2.insertId;
 							    console.log("Trajet ("+id_trajet+") cree !");
-							    if(callback!=null)callback(id_trajet);
+							    if(callback!=null)callback("Trajet ("+id_trajet+") cree !");
 							    CONFIG.deconnexion(NUM_FONC);
 								return id_trajet;
 							}else{
 								console.log(err2);
+								if(callback!=null)callback("bdd error");
 								CONFIG.deconnexion(NUM_FONC);
 								return false;
 							}
@@ -265,11 +268,13 @@ function creation_trajet(id_conducteur, date, lieu_dep, lieu_arr, h_dep, h_arr, 
 
 			    }else{
 			    	console.log('Conflit dans la base de données ! (Possibilité d\'existence d\'un meme trajet)');
+			    	if(callback!=null)callback("Conflit dans la base de données ! (Possibilité d\'existence d\'un meme trajet)");
 			    	CONFIG.deconnexion(NUM_FONC);
 					return false;
 			    }
 			}else{
 				console.log(err);
+				if(callback!=null)callback("bdd error");
 				CONFIG.deconnexion(NUM_FONC);
 				return false;
 			}
@@ -291,10 +296,11 @@ function suppr_trajet(id_trajet, callback=null){
 		function (err, result) {
 		    if(!err){
 		    	console.log("Trajet supprime !");
-			    if(callback!=null)callback(id_trajet);
+			    if(callback!=null)callback("Trajet supprime !");//id_trajet
 			    CONFIG.deconnexion(NUM_FONC);
 			}else{
 				console.log(err);
+				if(callback!=null)callback("bdd error");
 				CONFIG.deconnexion(NUM_FONC);
 				return false;
 			}
@@ -320,6 +326,7 @@ function recherche_trajet(lieu_dep, lieu_arr, h_dep, date="NOW()", nb_perso=0, c
 			    CONFIG.deconnexion(NUM_FONC);
 			}else{
 				console.log(err);
+				if(callback!=null)callback("bdd error");
 				CONFIG.deconnexion(NUM_FONC);
 				return false;
 			}
@@ -348,11 +355,12 @@ function reservation(id_user, id_trajet, nb_places, callback=null){
 							function (err2, result2) {
 							    if(!err2){
 							    	console.log("Reservation effectuee !");
-								    if(callback!=null)callback();
+								    if(callback!=null)callback(true);
 								    CONFIG.deconnexion(NUM_FONC);
 									return true;
 								}else{
-									console.log(err2);
+									console.log("error 2 " + err2);
+									if(callback!=null)callback("error trajet deja reservé");
 									CONFIG.deconnexion(NUM_FONC);
 									return false;
 								}
@@ -360,17 +368,20 @@ function reservation(id_user, id_trajet, nb_places, callback=null){
 
 				    }else{
 				    	console.log('Nombre de place maximum de reservation atteint !');
+				    	if(callback!=null)callback("Nombre de place maximum de reservation atteint !");
 				    	CONFIG.deconnexion(NUM_FONC);
 						return false;
 				    }
 
 			    }else{
 			    	console.log('Impossible de trouver le trajet !');
+			    	if(callback!=null)callback("Impossible de trouver le trajet !");
 			    	CONFIG.deconnexion(NUM_FONC);
 					return false;
 			    }
 			}else{
-				console.log(err);
+				console.log("error 1 " +err);
+				if(callback!=null)callback("error");
 				CONFIG.deconnexion(NUM_FONC);
 				return false;
 			}
@@ -421,6 +432,7 @@ function histo_trajet(id_user, callback=null){
 			    CONFIG.deconnexion(NUM_FONC);
 			}else{
 				console.log(err);
+				if(callback!=null)callback("bdd error");
 				CONFIG.deconnexion(NUM_FONC);
 				return false;
 			}
@@ -444,6 +456,7 @@ function histo_trajet_cree(id_user, callback=null){
 			    CONFIG.deconnexion(NUM_FONC);
 			}else{
 				console.log(err);
+				if(callback!=null)callback("bdd error");
 				CONFIG.deconnexion(NUM_FONC);
 				return false;
 			}
@@ -467,6 +480,7 @@ function recup_trajet_reservations(id_trajet, callback=null){
 			    CONFIG.deconnexion(NUM_FONC);
 			}else{
 				console.log(err);
+				if(callback!=null)callback("error");
 				CONFIG.deconnexion(NUM_FONC);
 				return false;
 			}
