@@ -59,6 +59,12 @@ const CONFIG=require('./config.js');
 		// Exemple :
 			reservation(1, id_trajet, 1);
 
+	// Fonction de suppression d'une reservation
+		function suppr_reservation(id_reservation, callback=null)
+		// Exemple
+			suppr_reservation(3, function(){
+				console.log("Callback");
+			});
 
 	// Fonction de listage de l'historique des trajets de l'utilisateur
 		function histo_trajet(id_user, callback=null);
