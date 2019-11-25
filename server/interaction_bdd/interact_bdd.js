@@ -480,7 +480,7 @@ function recup_trajet_reservations(id_user, callback=null){
 	}
 	CONFIG.connexion(NUM_FONC);
 
-	var requete=CONFIG.bdd.query('SELECT r1.`id_user`, r1.`nb_place`, r1.`etape_dep`, r1.`etape_arr` FROM `reservation` r1 WHERE r1.`id_user`='+id_user,
+	var requete=CONFIG.bdd.query('SELECT r1.`id_user`, r1.`nb_place`, r1.`etape_dep`, r1.`etape_arr`, t1.`date`, t1.`h_dep`, t1.`h_arr`, t1.`lieu_dep`, t1.`lieu_arr` FROM `reservation` r1 JOIN `trajet` t1 ON t1.`id_trajet`=r1.`id_trajet` WHERE r1.`id_user`='+id_user,
 		function (err, result) {
 		    if(!err){
 			    if(callback!=null)callback(result);
