@@ -399,7 +399,7 @@ function reservation(id_user, id_trajet, nb_places, callback=null){
 function suppr_reservation(id_user, id_trajet, callback=null){
 	var NUM_FONC=CONFIG.id_fonction();
 
-	if(id_trajet==undefined){
+	if(id_user==undefined||id_trajet==undefined){
 		console.log("Un paramètre obligatoire n'est pas défini (fonction suppr_reservation) !");
 		return false;
 	}
@@ -410,10 +410,11 @@ function suppr_reservation(id_user, id_trajet, callback=null){
 		function (err, result) {
 		    if(!err){
 		    	console.log("Reservation supprimee !");
-			    if(callback!=null)callback(id_reservation);
+			    if(callback!=null)callback(true);
 			    CONFIG.deconnexion(NUM_FONC);
 			}else{
 				console.log(err);
+				if(callback!=null)callback(false);
 				CONFIG.deconnexion(NUM_FONC);
 				return false;
 			}
