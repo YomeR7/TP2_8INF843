@@ -66,6 +66,7 @@ export class TrajetService {
   }
 
   supprimerReservation(idTrajet){
+    console.log(idTrajet);
     return this.http.post('http://127.0.0.1:8000/user/supprReservation', {"idTrajet" : idTrajet },{withCredentials:true})
     .subscribe((val) => {
       var JSONval =JSON.parse(JSON.stringify(val));
