@@ -467,7 +467,7 @@ function histo_trajet_cree(id_user, callback=null){
 function recup_trajet_reservations(id_user, callback=null){
 	var NUM_FONC=CONFIG.id_fonction();
 
-	if(id_trajet==undefined){
+	if(id_user==undefined){
 		console.log("Un paramètre obligatoire n'est pas défini (fonction recup_trajet_reservations) !");
 		return false;
 	}
@@ -524,6 +524,7 @@ module.exports = {
 	histo_trajet,
 	histo_trajet_cree,
 	recup_trajet_reservations,
+	reservation,
 	suppr_reservation,
 	test_mdp
 }
