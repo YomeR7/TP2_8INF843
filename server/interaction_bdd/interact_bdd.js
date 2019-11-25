@@ -60,9 +60,9 @@ const CONFIG=require('./config.js');
 			reservation(1, id_trajet, 1);
 
 	// Fonction de suppression d'une reservation
-		function suppr_reservation(id_reservation, callback=null)
+		function suppr_reservation(id_user, id_trajet, callback=null)
 		// Exemple
-			suppr_reservation(3, function(){
+			suppr_reservation(2, 3, function(){
 				console.log("Callback");
 			});
 
@@ -396,7 +396,7 @@ function reservation(id_user, id_trajet, nb_places, callback=null){
 }
 
 
-function suppr_reservation(id_reservation, callback=null){
+function suppr_reservation(id_user, id_trajet, callback=null){
 	var NUM_FONC=CONFIG.id_fonction();
 
 	if(id_trajet==undefined){
@@ -406,7 +406,7 @@ function suppr_reservation(id_reservation, callback=null){
 
 	CONFIG.connexion(NUM_FONC);
 
-	var requete=CONFIG.bdd.query('DELETE FROM `RESERVATION` WHERE `id_reservation`='+id_reservation,
+	var requete=CONFIG.bdd.query('DELETE FROM `RESERVATION` WHERE `id_user`='+id_user+' AND `id_trajet`='+id_trajet,
 		function (err, result) {
 		    if(!err){
 		    	console.log("Reservation supprimee !");
