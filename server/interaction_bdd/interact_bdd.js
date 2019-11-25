@@ -464,7 +464,7 @@ function histo_trajet_cree(id_user, callback=null){
 
 }
 
-function recup_trajet_reservations(id_trajet, callback=null){
+function recup_trajet_reservations(id_user, callback=null){
 	var NUM_FONC=CONFIG.id_fonction();
 
 	if(id_trajet==undefined){
@@ -473,7 +473,7 @@ function recup_trajet_reservations(id_trajet, callback=null){
 	}
 	CONFIG.connexion(NUM_FONC);
 
-	var requete=CONFIG.bdd.query('SELECT r1.`id_user`, r1.`nb_place`, r1.`etape_dep`, r1.`etape_arr` FROM `reservation` r1 WHERE r1.`id_trajet`='+id_trajet,
+	var requete=CONFIG.bdd.query('SELECT r1.`id_user`, r1.`nb_place`, r1.`etape_dep`, r1.`etape_arr` FROM `reservation` r1 WHERE r1.`id_user`='+id_user,
 		function (err, result) {
 		    if(!err){
 			    if(callback!=null)callback(result);
