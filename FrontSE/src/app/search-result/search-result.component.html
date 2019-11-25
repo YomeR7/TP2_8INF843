@@ -78,7 +78,7 @@
                     {{result.tel}}
                 </p>
             </mat-card-content>
-            <mat-card-actions>
+            <mat-card-actions *ngIf="result.nb_places_tot > result.nb_reservations">
                 <button mat-button (click)="trajetService.reservationTrajet(result.id_trajet)"> Reserver </button>
 
             </mat-card-actions>
