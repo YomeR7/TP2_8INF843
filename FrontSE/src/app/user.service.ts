@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 
 export class UserService {
 
-  id = 10;
+  id = -1;
   login = '';
   password = '';
   nom = '';
