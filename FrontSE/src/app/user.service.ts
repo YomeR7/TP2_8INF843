@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
+import {Router} from '@angular/router';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +25,7 @@ export class UserService {
   trajetPropose = [];
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router:Router) { }
 
   setId(id) {
     this.id = id;
@@ -134,6 +137,7 @@ export class UserService {
         if (JSONval.message === "authentication succes") {
           this.id = 10;
           this.login = connexionObj.login;
+          this.router.navigateByUrl('/')
         }
         else {
           alert("Erreur de connexion")
@@ -153,6 +157,7 @@ export class UserService {
         var JSONval = JSON.parse(JSON.stringify(val));
         if (JSONval.message === "inscrit avec succes!") {
           alert("Inscrit avec succes!")
+          this.router.navigateByUrl('/Connexion')
         }
         else {
           alert("Erreur dans l'inscription")
